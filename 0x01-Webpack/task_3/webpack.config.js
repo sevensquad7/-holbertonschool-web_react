@@ -1,34 +1,59 @@
 const path = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 
 module.exports = {
-	entry: './js/dashboard_main.js',
+	entry: {
+		header: './modules/header/header.js',
+		body: './modules/body/body.js',
+		footer: './modules/footer/footer.js'
+	},
 	output: {
+		filename: '[name].bundle.js',
 		path: path.resolve(__dirname, 'public'),
-		filename: 'bundle.js',
+		clean: true,
 	},
-	mode: 'production',
-	performance: {
-		maxAssetSize: 100000,
+
+	optimization: {
+		runtimeChunk: 'single',
 	},
+
+	plugins:
+		[
+			new HtmlWebpackPlugin(),
+			new CleanWebpackPlugin(),
+		],
+
+
+	devtool: "inline-source-map",
+
 	module: {
 		rules: [
 			{
-				test: /\.css$/,
-				use: ['style-loader', 'css-loader'],
+				test: /\.css$/i,
+				use: ['style-loader', 'css-loader']
 			},
+
 			{
-				test: /\.(gif|png|jpe?g|svg)$/i,
-				use: [
-					'file-loader',
-					{
-						loader: 'image-webpack-loader',
-						options: {
-							bypassOnDebug: true,
-							disable: true,
-						},
-					},
-				],
+				test: /\.(png|svg|jpe?g|gif)$/i,
+				type: 'asset/resource',
 			},
 		],
+	},
+
+	mode: "development",
+
+	performance: {
+		hints: false,
+		maxEntrypointSize: 512000,
+		maxAssetSize: 512000
+	},
+
+	devServer: {
+		static: {
+			directory: path.join(__dirname, 'public'),
+		},
+		compress: true,
+		port: 8564,
 	},
 };
