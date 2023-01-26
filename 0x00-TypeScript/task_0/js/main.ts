@@ -2,7 +2,7 @@ interface Student {
     firstName: string;
     lastName: string;
     age: number;
-    location: string,
+    location: string;
 }
 
 const studentOne: Student = {
