@@ -1,0 +1,8 @@
+:root{
+    --color-red: rgb(227, 73, 73);
+}
+
+.root-notifications {
+    border: 3px dotted var(--color-red);
+    padding: 2rem;
+}
