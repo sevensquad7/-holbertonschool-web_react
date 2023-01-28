@@ -10,4 +10,8 @@ const getFooterCopy = (isIndex) => {
 	}
 }
 
-module.exports = { getFullYear, getFooterCopy };
+const getLatestNotification = () => {
+	return '<strong>Urgent requirement</strong> - complete by EOD';
+}
+
+module.exports = { getFullYear, getFooterCopy, getLatestNotification };
